@@ -1,4 +1,4 @@
-﻿Imports System.Data
+Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Security.Cryptography
 Imports System.Text
@@ -18,6 +18,17 @@ Partial Class Register
             lblMessage.ForeColor = Drawing.Color.Red
             Exit Sub
         End If
+
+        ' Validate email format using Regex
+        Dim email As String = txtEmail.Text.Trim()
+        Dim emailRegex As String = "^[^@\s]+@[^@\s]+\.[^@\s]+$"
+
+        If Not Regex.IsMatch(email, emailRegex) Then
+            lblMessage.Text = "❌ Invalid email format. Please enter a valid email address."
+            lblMessage.ForeColor = Drawing.Color.Red
+            Exit Sub
+        End If
+
 
         ' Try to parse the enrollment date in dd.MM.yyyy format
         Dim enrollmentRaw As String = txtEnrollmentDate.Text.Trim()
